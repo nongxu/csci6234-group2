@@ -1,0 +1,64 @@
+@startuml
+left to right direction
+
+' Classes definition
+class Order {
+  dateReceived: Date[0..1]
+  isPrepaid: Boolean[1]
+  number: String[1]
+  price: Money
+  --
+  dispatch()
+  close()
+}
+
+class Customer {
+  name[1]
+  address[0..1]
+  --
+  getCreditRating(): String
+}
+
+class "Corporate Customer" as CorporateCustomer {
+  contactName
+  creditRating
+  creditLimit
+  --
+  billForMonth(Integer)
+  remind()
+}
+
+class "Personal Customer" as PersonalCustomer {
+  creditCardNumber
+  --
+  {getCreditRating() == "poor"}
+}
+
+class "Order Line" as OrderLine {
+  quantity: Integer
+  price: Money
+}
+
+class Product {
+}
+
+class Employee {
+}
+
+' Inheritance (generalization)
+Customer <|-- CorporateCustomer
+Customer <|-- PersonalCustomer
+
+' Association between Order and Customer
+Order "*" --> "1" Customer
+
+' Composition between Order and Order Line
+Order "1" --> "*" OrderLine : lineItems\n{ordered}
+
+' Association between Order Line and Product
+OrderLine "*" --> "1" Product
+
+' Association between Corporate Customer and Employee
+CorporateCustomer "*" --> "0..1" Employee : salesRep
+
+@enduml

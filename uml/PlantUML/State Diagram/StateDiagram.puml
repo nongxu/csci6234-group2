@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+
+' Define states
+state "Wait" as Wait
+state "Lock" as Lock
+state "Open" as Open
+
+' Initial state
+[*] --> Wait
+
+' Transitions between states
+Wait --> Lock : candle removed [door closed] / reveal lock
+Lock --> Open : key turned [candle in] / open safe
+Open --> Wait : safe closed
+Lock --> [*] : key turned [candle out] / release killer rabbit
+
+@enduml

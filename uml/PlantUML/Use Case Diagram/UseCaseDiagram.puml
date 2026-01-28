@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+' Define actors
+actor "Trading\nManager" as TM
+actor "Trader" as Trader
+actor "Accounting\nSystem" as AS
+actor "Salesperson" as SP
+
+' Define system boundary with use cases
+package {
+  (Set\nLimits) as UC1
+  (Update\nAccounts) as UC2
+  (Analyze\nRisk) as UC3
+  (Price\nDeal) as UC4
+  (Value\nDeal) as UC5
+  (Capture\nDeal) as UC6
+  
+  ' Include relationships
+  UC3 ..> UC5 : <<include>>
+  UC4 ..> UC5 : <<include>>
+}
+
+' Actor-use case associations
+TM -- UC1
+
+Trader -- UC3
+Trader -- UC4
+Trader -- UC6
+
+AS -- UC2
+
+SP -- UC6
+SP -- UC4
+
+@enduml

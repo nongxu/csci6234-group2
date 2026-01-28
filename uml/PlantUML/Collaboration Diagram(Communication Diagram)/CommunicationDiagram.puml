@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+
+(System) as Empty
+(an Order) as Order
+(an Order Line) as OrderLine
+(a Product) as Product
+(a Customer) as Customer
+
+' Relationships/links
+Empty -- Order
+Order -- OrderLine
+Order -- Product : <<local>>
+Order -- Customer
+OrderLine -- Product 
+
+' Messages on links
+Empty -> Order : 1: calculatePrice
+Order -> Order : 5: calculateBasePrice()\n6: calculateDiscounts()
+Order -> OrderLine : 2: getQuantity()\n3: getProduct()
+Order -> Product : 4: getPricingDetails
+Order -> Customer : 7: getDiscountInfo
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+
+' Components outside Sales Server
+component "Till" as Till
+component "Message Queue" as MsgQueue
+component "Accounting\nSystem" as AccSystem
+
+' Interface
+interface "sales\nmessage" as SalesMsg
+interface " " as Interface02
+
+' Sales Server with ports and nested components
+component "Sales Server" as SalesServer {
+  portin " " as salesPort
+  portout " " as accPort
+  interface " " as Interface1
+  
+  component "Transaction\nProcessor" as TxProcessor
+  component "Accounting\nDriver" as AccDriver
+  
+  salesPort ..> TxProcessor
+  TxProcessor --( Interface1
+  AccDriver  -- Interface1
+  AccDriver ..> accPort
+}
+
+Till -- MsgQueue
+Till --( SalesMsg
+MsgQueue --( SalesMsg
+MsgQueue -- salesPort
+SalesMsg -- salesPort
+accPort --( Interface02
+Interface02 -- AccSystem
+
+@enduml
