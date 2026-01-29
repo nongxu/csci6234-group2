@@ -3,9 +3,9 @@ left to right direction
 
 ' Classes definition
 class Order {
-  dateReceived: Date[0..1]
-  isPrepaid: Boolean[1]
-  number: String[1]
+  dateReceived: Date
+  isPrepaid: Boolean
+  number: String
   price: Money
   --
   dispatch()
@@ -13,8 +13,8 @@ class Order {
 }
 
 class Customer {
-  name[1]
-  address[0..1]
+  name: String
+  address: String
   --
   getCreditRating(): String
 }
